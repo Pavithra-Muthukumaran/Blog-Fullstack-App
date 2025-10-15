@@ -32,5 +32,30 @@ export const getPost = async (req, res) => {
     }
 };
 
+export const updatePost = async (req, res) => {
+    try{
+        const post = await Post.findById(req.params.id);
+        if(!post) return res.status(404).json({message : "Post not found"});
+        if(post.author.toString() !== req.user.id) return res.status(403).json({message : 'Forbidden'});
+        post.title = req.params.title ?? post.title;
+        post.body = req.params.body ?? post.body;
+        post.tags = req.params.tags ?? post.tags;
+        await post.save();
+        res.json(post);
+    }catch(err){
+        res.status(500).json({message : 'Server Error'});
+    }
+};
 
-
+export const deletePost = async (req, res) => {
+    try{
+        const post = await Post.findById(req.params.id);
+        if(!post) return res.status(404).json({message : "Post not found"});
+                if(post.author.toString() !== req.user.id) return res.status(403).json({message : 'Forbidden'});
+                await Comment.deleteMany({post:post._id});
+                await post.remove();
+                res.json({message : 'Post Deleted'});
+    }catch(err){
+        res.status(500).json({message : 'Server Error'});
+    }
+}; 
