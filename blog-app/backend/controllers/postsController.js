@@ -1,7 +1,7 @@
 import  Post from '../models/Posts.js';
 import Comment from '../models/Comments.js';
 
-export const CreatePost = async (req,res) => {
+export const createPost = async (req,res) => {
     const {title, body, tags} = req.body;
     try{
         const post = new Post({title, body, tags, author : req.user.id});

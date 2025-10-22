@@ -7,4 +7,4 @@ const PostSchema  = new mongoose.Schema({
     tags : [String],
 }, {timestamps : true});
 
-export default PostSchema;
+export default mongoose.model('Post',PostSchema);

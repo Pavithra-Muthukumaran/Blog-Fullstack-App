@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const protect = (req, res, next) => {
+export const authMiddleware = (req, res, next) => {
     const header = req.headers.authorization;
     if(!header || !header.startsWith('Bearer ')){
         return res.status(401).json({message : "Not authorized. No Token"});

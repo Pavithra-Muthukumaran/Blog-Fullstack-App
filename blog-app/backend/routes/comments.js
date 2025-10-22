@@ -1,7 +1,7 @@
 import express from 'express';
-import {addComment, getComments} from '../controllers/commentsController.js';
-import {protect} from '../middleware/auth.js';
+import {addComment, deleteComment} from '../controllers/commentsController.js';
+import {authMiddleware} from '../middleware/auth.js';
 const router = express.Router({mergeParams: true});
-router.post('/:postId', protect, addComment);
-router.get('/:postId/:commentId', protect,deleteComment);
+router.post('/:postId', authMiddleware, addComment);
+router.get('/:postId/:commentId', authMiddleware,deleteComment);
 export default router;

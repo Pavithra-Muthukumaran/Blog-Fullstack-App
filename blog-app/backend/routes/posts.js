@@ -1,10 +1,10 @@
 import express from 'express';
 import {getPost, getPosts, createPost, updatePost, deletePost} from '../controllers/postsController.js';
-import {protect} from '../middleware/auth.js';
+import {authMiddleware} from '../middleware/auth.js';
 const router = express.Router();
 router.get('/', getPosts);
-router.post('/', protect, createPost);
+router.post('/', authMiddleware, createPost);
 router.get('/:id', getPost);
-router.put('/:id', protect, updatePost);
-router.delete('/:id', protect, deletePost);
+router.put('/:id', authMiddleware, updatePost);
+router.delete('/:id', authMiddleware, deletePost);
 export default router;

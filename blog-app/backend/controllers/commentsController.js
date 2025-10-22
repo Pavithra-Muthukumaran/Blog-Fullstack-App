@@ -1,6 +1,6 @@
 import Comment from '../models/Comments.js';
 
-export const addComments = async (req, res) => {
+export const addComment = async (req, res) => {
     try{
         const {content} = req.body;
         const comment = new Comment({content, author : req.user.id, post : req.params.postId});
